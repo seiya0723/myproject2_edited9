@@ -22,8 +22,8 @@ class Topic(models.Model):
 
     title = models.CharField(verbose_name="タイトル", max_length=100, default="")
     comment = models.CharField(verbose_name="コメント", blank=True, max_length=2000)
-    income = models.IntegerField(verbose_name="収入", null=True)
-    spending = models.IntegerField(verbose_name="支出", null=True)
+    income = models.IntegerField(verbose_name="収入",default=0)
+    spending = models.IntegerField(verbose_name="支出",default=0)
     dt = models.DateTimeField(verbose_name="投稿日", default=timezone.now)
     pay_dt  =  models.DateTimeField(verbose_name="決済日")
 

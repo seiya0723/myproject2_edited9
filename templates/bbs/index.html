@@ -80,7 +80,11 @@
             <input id="pay_dt" type="text" name="pay_dt" readonly>
             <input class="btn btn-success" type="submit" value="投稿">
         </form>
-        {% generate_balance topics %}
+        {# {% generate_balance topics %} #}
+
+        <!--埋め込み型カスタムテンプレートタグで参照していたデータをincludeさせる-->
+        {% include "bbs/table.html" %}
+        
     </main>
 
 

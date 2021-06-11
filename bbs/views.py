@@ -1,28 +1,18 @@
 from django.shortcuts import render,redirect
 from django.views import View
 
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-
 
 from .models import Topic,Category
 from .forms import TopicForm
 
-
 from django.db.models import Q
-
 
 class BbsView(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):
 
-
-
-
         categories  = Category.objects.all()
-
-
 
         if "search" in request.GET:
 
@@ -42,12 +32,24 @@ class BbsView(LoginRequiredMixin,View):
         else:
             topics  = Topic.objects.all()
 
+            
+        #TODO:クエリオブジェクトtopicsを辞書型のリスト型に変換する
+        topics      = list(topics.values())
+       
+        #TODO:totalを初期化、収入と支出を計算して追加する。
+        total           = 0
+        for topic in topics:
+            #FIXME:NULLがあると計算ができなくなるので、models.pyからincomeとspendingのnull=Trueを消して、default=0を入れマイグレーションし直す。
+            topic["total"]  = total + int(topic["income"]) - int(topic["spending"])
 
 
 
+
+
+        #FIXME:簡易掲示板の名前そのまま利用しているので、変数名クラス名等は直したほうがよい。
         chobos = []
         context = {"chobos":chobos,
-                   "topics":topics,
+                   "balances":topics,
                    "categories":categories,
                    }
 
