@@ -35,12 +35,14 @@ class BbsView(LoginRequiredMixin,View):
             
         #TODO:クエリオブジェクトtopicsを辞書型のリスト型に変換する
         topics      = list(topics.values())
+        
        
         #TODO:totalを初期化、収入と支出を計算して追加する。
         total           = 0
         for topic in topics:
             #FIXME:NULLがあると計算ができなくなるので、models.pyからincomeとspendingのnull=Trueを消して、default=0を入れマイグレーションし直す。
-            topic["total"]  = total + int(topic["income"]) - int(topic["spending"])
+            total           = total + int(topic["income"]) - int(topic["spending"])
+            topic["total"]  = total
 
 
 
